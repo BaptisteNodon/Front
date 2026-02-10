@@ -1,8 +1,15 @@
-const API_URL = "http://localhost:3000/api/contracts"; // je me suis dis qu'il n'y avait pas besoin de mettre l'URL en variable d'environnement car y a pas de prod (désolé si vous vouliez la changer)
+const API_URL = "http://localhost:3000/api/contracts";
 
-export const getAllContracts = async () => {
+// On ajoute des paramètres optionnels title et status
+export const getAllContracts = async (title = "", status = "") => {
   try {
-    const response = await fetch(API_URL);
+    // Construction propre de l'URL avec les paramètres
+    const url = new URL(API_URL);
+    
+    if (title) url.searchParams.append("title", title);
+    if (status) url.searchParams.append("status", status);
+
+    const response = await fetch(url);
     if (!response.ok) {
       throw new Error(`Erreur HTTP: ${response.status}`);
     }
