@@ -1,42 +1,84 @@
-#root {
-  max-width: 1280px;
+/* Fiche de style minimaliste proposé par Gemini IA */
+
+:root {
+  --bg-color: #2c3e50;
+  --text-color: #ecf0f1;
+  --accent-color: #e67e22;
+  --card-bg: #34495e;
+  --status-available: #27ae60;
+  --status-assigned: #f39c12;
+  --status-completed: #7f8c8d;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 900px;
   margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  padding: 20px;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+/* Navbar */
+nav {
+  background-color: #1a252f;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+nav a { color: white; text-decoration: none; margin-right: 15px; }
+nav span { color: var(--accent-color); font-weight: bold; }
+
+/* Cartes de contrats */
+.contract-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.contract-card {
+  background-color: var(--card-bg);
+  padding: 15px;
+  border-radius: 8px;
+  border: 1px solid #455a64;
+  transition: transform 0.2s;
 }
+.contract-card:hover { transform: translateY(-5px); }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
+/* Couleurs par statut */
+.status-Available { border-left: 5px solid var(--status-available); }
+.status-Assigned { border-left: 5px solid var(--status-assigned); }
+.status-Completed { border-left: 5px solid var(--status-completed); opacity: 0.7; }
 
-.card {
-  padding: 2em;
+/* Filtres */
+.filters {
+  margin-bottom: 20px;
+  background: var(--card-bg);
+  padding: 15px;
+  border-radius: 5px;
 }
+input, select, button, textarea {
+  padding: 8px;
+  margin: 5px;
+  border-radius: 4px;
+  border: none;
+}
+button {
+  background-color: var(--accent-color);
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+}
+button:hover { opacity: 0.9; }
+button.secondary { background-color: #7f8c8d; }
 
-.read-the-docs {
-  color: #888;
-}
+/* Formulaires */
+.form-group { margin-bottom: 15px; }
+label { display: block; margin-bottom: 5px; }
+input, textarea { width: 100%; box-sizing: border-box; }
