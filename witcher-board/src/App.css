@@ -1,84 +1,218 @@
-/* Fiche de style minimaliste proposé par Gemini IA etape 2.4 */
+/* Thème "The Witcher" Proposé par Gemini plus quelque modif que j'ai faite car rien n'etais centré */
 
 :root {
-  --bg-color: #2c3e50;
-  --text-color: #ecf0f1;
-  --accent-color: #e67e22;
-  --card-bg: #34495e;
-  --status-available: #27ae60;
-  --status-assigned: #f39c12;
-  --status-completed: #7f8c8d;
+  /* Palette de couleurs "Médiéval / Fantasy" */
+  --bg-color: #1a1614;         /* Fond très sombre (charbon/marron) */
+  --text-main: #e0d8c3;        /* Couleur parchemin clair pour le texte */
+  --text-dark: #2c241b;        /* Marron foncé pour le texte sur fond clair */
+  
+  --card-bg: #2e2620;          /* Marron cuir pour les cartes */
+  --card-border: #4a3b2a;      /* Bordure bois */
+  
+  --accent-gold: #c2a878;      /* Or vieilli (médaillon) */
+  --accent-red: #8b0000;       /* Rouge sang (actions importantes) */
+  --input-bg: #dccfb8;         /* Fond parchemin pour les inputs */
+
+  /* Couleurs de statuts (plus ternes pour faire "ancien") */
+  --status-available: #5e8c61; /* Vert forêt */
+  --status-assigned: #d35400;  /* Orange brûlé */
+  --status-completed: #555555; /* Gris fer */
 }
 
+/* Ajoute ceci tout en haut pour éviter les soucis de largeur */
+* {
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+/* 1. On modifie le BODY pour qu'il prenne tout l'écran */
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Georgia', 'Times New Roman', serif;
   background-color: var(--bg-color);
-  color: var(--text-color);
+  color: var(--text-main);
   margin: 0;
   padding: 0;
+  /* Image de fond qui reste fixe quand on scrolle */
+  background-image: linear-gradient(to bottom, #1a1614, #261f1b);
+  background-attachment: fixed; 
+  min-height: 100vh;
 }
 
-.container {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 20px;
+/* 2. On s'assure que l'élément racine de React prend aussi toute la hauteur */
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
-/* Navbar */
+/* 3. On fixe la Navbar */
 nav {
-  background-color: #1a252f;
-  padding: 1rem;
+  background-color: #120f0e;
+  padding: 1rem 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-bottom: 2px solid var(--accent-gold);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+  
+  /* --- NOUVEAU : Fixation --- */
+  position: fixed; /* Reste collé en haut */
+  top: 0;
+  left: 0;
+  width: 100%;     /* Prend toute la largeur */
+  z-index: 1000;   /* Passe au-dessus du reste */
+  height: 80px;    /* On définit une hauteur fixe pour calculer le décalage */
 }
-nav a { color: white; text-decoration: none; margin-right: 15px; }
-nav span { color: var(--accent-color); font-weight: bold; }
 
-/* Cartes de contrats */
+/* 4. On adapte le Container pour qu'il ne soit pas caché sous la navbar */
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  
+  /* --- NOUVEAU : Décalage et Remplissage --- */
+  padding-top: 120px; /* 80px de navbar + 40px d'espace */
+  padding-bottom: 40px;
+  flex: 1; /* Force le container à prendre l'espace restant en hauteur */
+  width: 100%;
+}
+
+/* Titres */
+h1, h2, h3, h4 {
+  color: var(--accent-gold);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  border-bottom: 1px solid var(--card-border);
+  padding-bottom: 10px;
+  text-shadow: 2px 2px 0px #000;
+}
+
+
+nav a {
+  color: var(--text-main);
+  text-decoration: none;
+  margin-right: 20px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+nav a:hover {
+  color: var(--accent-gold);
+}
+
+/* Grille et Cartes */
 .contract-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 25px;
+  margin-top: 30px;
 }
 
 .contract-card {
   background-color: var(--card-bg);
-  padding: 15px;
-  border-radius: 8px;
-  border: 1px solid #455a64;
-  transition: transform 0.2s;
-}
-.contract-card:hover { transform: translateY(-5px); }
-
-/* Couleurs par statut */
-.status-Available { border-left: 5px solid var(--status-available); }
-.status-Assigned { border-left: 5px solid var(--status-assigned); }
-.status-Completed { border-left: 5px solid var(--status-completed); opacity: 0.7; }
-
-/* Filtres */
-.filters {
-  margin-bottom: 20px;
-  background: var(--card-bg);
-  padding: 15px;
-  border-radius: 5px;
-}
-input, select, button, textarea {
-  padding: 8px;
-  margin: 5px;
+  padding: 20px;
+  border: 1px solid var(--card-border);
   border-radius: 4px;
-  border: none;
+  box-shadow: 5px 5px 15px rgba(0,0,0,0.4);
+  transition: transform 0.2s, box-shadow 0.2s;
+  position: relative;
 }
-button {
-  background-color: var(--accent-color);
-  color: white;
-  cursor: pointer;
-  font-weight: bold;
-}
-button:hover { opacity: 0.9; }
-button.secondary { background-color: #7f8c8d; }
 
-/* Formulaires */
-.form-group { margin-bottom: 15px; }
-label { display: block; margin-bottom: 5px; }
-input, textarea { width: 100%; box-sizing: border-box; }
+.contract-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 8px 8px 20px rgba(0,0,0,0.6);
+  border-color: var(--accent-gold);
+}
+
+/* Indicateurs de statut (Bandeau à gauche) */
+.status-Available { border-left: 6px solid var(--status-available); }
+.status-Assigned { border-left: 6px solid var(--status-assigned); }
+.status-Completed { border-left: 6px solid var(--status-completed); opacity: 0.7; }
+
+/* Boutons */
+button {
+  background-color: var(--card-border);
+  color: var(--accent-gold);
+  font-family: 'Georgia', serif;
+  font-weight: bold;
+  text-transform: uppercase;
+  padding: 10px 15px;
+  border: 1px solid var(--accent-gold);
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+button:hover:not(:disabled) {
+  background-color: var(--accent-gold);
+  color: var(--text-dark);
+  box-shadow: 0 0 10px var(--accent-gold);
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  border-color: #555;
+}
+
+/* Bouton secondaire (Gris/Annuler) */
+button.secondary {
+  background-color: transparent;
+  border-color: #777;
+  color: #aaa;
+}
+button.secondary:hover {
+  background-color: #333;
+  color: #fff;
+}
+
+/* Formulaires et Filtres */
+.filters, form {
+  background-color: var(--card-bg);
+  padding: 20px;
+  border-radius: 4px;
+  border: 1px solid var(--card-border);
+  margin-bottom: 25px;
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0 15px 0;
+  border-radius: 2px;
+  border: 2px solid var(--card-border);
+  background-color: var(--input-bg); /* Couleur papier */
+  color: var(--text-dark); /* Texte foncé sur papier clair */
+  font-family: 'Georgia', serif;
+  font-size: 1rem;
+  box-sizing: border-box; /* Important pour que le padding ne dépasse pas */
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: var(--accent-gold);
+  box-shadow: 0 0 5px rgba(194, 168, 120, 0.5);
+}
+
+label {
+  color: var(--accent-gold);
+  font-weight: bold;
+  display: block;
+  margin-bottom: 5px;
+}
+
+/* Liens */
+a {
+  color: var(--accent-gold);
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+/* Petits détails */
+hr {
+  border: 0;
+  border-top: 1px solid var(--card-border);
+  margin: 20px 0;
+}
