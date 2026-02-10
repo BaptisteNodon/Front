@@ -19,3 +19,9 @@ export const getAllContracts = async (title = "", status = "") => {
     throw error;
   }
 };
+
+export const getContractById = async (id) => {
+  const response = await fetch(`${API_URL}/${id}`);
+  if (!response.ok) throw new Error("Contrat introuvable");
+  return await response.json();
+};

@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom"; // <--- Ajout de l'import manquant
 import { getAllContracts } from "../services/contractService";
 import "../App.css";
 
 export default function ContractList() {
   const [contracts, setContracts] = useState([]);
   
-  // États pour les filtres (3.1)
+  // États pour les filtres (Step 3.1)
   const [titleFilter, setTitleFilter] = useState("");
   const [statusFilter, setStatusFilter] = useState("");
 
@@ -15,13 +16,13 @@ export default function ContractList() {
       .then((data) => setContracts(data))
       .catch((err) => console.error("Erreur filtre:", err));
       
-  }, [titleFilter, statusFilter]); // le tableau de dépendances relance l'effet quand ces valeurs changent
+  }, [titleFilter, statusFilter]); // relance l'effet quand ces valeurs changent
 
   return (
     <div className="container">
       <h1>⚔️ Tableau des Contrats</h1>
 
-      {/* zone de filtres (3.1) */}
+      {/* Zone de filtres (Step 3.1) */}
       <div className="filters">
         <input
           type="text"
@@ -41,19 +42,22 @@ export default function ContractList() {
         </select>
       </div>
       
-      {/* Grille des contrats */}
+      {/* grille contrats */}
       <div className="contract-grid">
         {contracts.map((contract) => (
-          <div 
-            key={contract.id} 
-            className={`contract-card status-${contract.status}`} 
-          >
+          <div key={contract.id} className={`contract-card status-${contract.status}`}>
             <h3>{contract.title}</h3>
-            <p>{contract.description}</p>
+            {/* coupe le texte s'il est trop long pour garder les cartes propres et car on peut desormais cliquer sur voir le détail pour avoir l'apercu total */}
+            <p>{contract.description.substring(0, 100)}...</p> 
             <p>
               <strong>Statut : </strong> 
               <span style={{color: 'var(--accent-color)'}}>{contract.status}</span>
             </p>
+            
+            {/* Bouton voir détail (Step 4.4) */}
+            <Link to={`/contracts/${contract.id}`}>
+              <button style={{ marginTop: '10px' }}>Voir le détail</button>
+            </Link>
           </div>
         ))}
         
