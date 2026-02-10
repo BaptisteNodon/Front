@@ -1,20 +1,13 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-
-// étape 1.3 composant de test
-function HomePage() {
-  return (
-    <div style={{ padding: '20px' }}>
-      <h1>⚔️ Witcher Board</h1>
-      <p>Bienvenue sur le tableau des contrats (Page de test).</p>
-    </div>
-  );
-}
+import ContractList from './pages/ContractList';
+import HomePage from './pages/HomePage';
 
 // étape 1.3 configuration des routes
 function App() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/contracts" element={<ContractList />} />
         <Route path="/" element={<HomePage />} />
       </Routes>
     </BrowserRouter>
