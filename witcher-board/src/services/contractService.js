@@ -54,6 +54,40 @@ export const updateContract = async (id, contractData) => {
   if (!response.ok) {
     throw new Error("Erreur lors de la modification du contrat");
   }
-  // L'API ne renvoie pas forcément de contenu au PUT, donc on peut renvoyer juste true ou le status
   return true; 
 };
+
+// 7.3
+
+export const assignContract = async (contractId, witcherId) => {
+  const response = await fetch(`${API_URL}/${contractId}/assignedTo`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    
+    body: JSON.stringify(String(witcherId)), 
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json();
+    throw new Error(errorData.message || "Erreur lors de l'assignation");
+  }
+  return true;
+};
+
+
+
+export const completeContract = async (contractId) => {
+  const response = await fetch(`${API_URL}/${contractId}/status`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    //on envoie juste la string "Completed"
+    body: JSON.stringify("Completed"), 
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json();
+    throw new Error(errorData.message || "Erreur lors de la clôture");
+  }
+  return true;
+};
+
