@@ -20,8 +20,12 @@ export default function ContractList() {
 
   return (
     <div className="container">
-      <h1>⚔️ Tableau des Contrats</h1>
-
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <h1>⚔️ Tableau des Contrats</h1>
+        <Link to="/create">
+          <button>+ Nouveau Contrat</button>
+        </Link>
+      </div>
       {/* Zone de filtres (Step 3.1) */}
       <div className="filters">
         <input

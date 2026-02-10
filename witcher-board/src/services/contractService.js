@@ -25,3 +25,19 @@ export const getContractById = async (id) => {
   if (!response.ok) throw new Error("Contrat introuvable");
   return await response.json();
 };
+
+
+export const createContract = async (contractData) => {
+  const response = await fetch(API_URL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(contractData),
+  });
+
+  if (!response.ok) {
+    throw new Error("Erreur lors de la création du contrat");
+  }
+  return await response.json();
+};
