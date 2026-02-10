@@ -62,7 +62,7 @@ export default function ContractCreate() {
         <div className="form-group">
           <label>Récompense (Couronnes)</label>
           <input 
-            type="number" 
+            type="string" 
             required 
             min="1"
             value={formData.reward}

@@ -41,3 +41,19 @@ export const createContract = async (contractData) => {
   }
   return await response.json();
 };
+
+export const updateContract = async (id, contractData) => {
+  const response = await fetch(`${API_URL}/${id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(contractData),
+  });
+
+  if (!response.ok) {
+    throw new Error("Erreur lors de la modification du contrat");
+  }
+  // L'API ne renvoie pas forcément de contenu au PUT, donc on peut renvoyer juste true ou le status
+  return true; 
+};

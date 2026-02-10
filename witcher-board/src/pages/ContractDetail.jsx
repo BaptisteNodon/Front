@@ -45,6 +45,13 @@ export default function ContractDetail() {
             <p>{witcher.name} (École : {witcher.school})</p>
           </div>
         )}
+
+        <div style={{ marginTop: "20px", borderTop: "1px solid #eee", paddingTop: "10px" }}>
+            {/* Lien vers la page d'édition (Step 6.4) */}
+            <Link to={`/edit/${contract.id}`}>
+                <button className="secondary">✏️ Modifier le contrat</button>
+            </Link>
+        </div>
       </div>
     </div>
   );
